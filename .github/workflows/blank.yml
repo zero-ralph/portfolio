@@ -32,5 +32,3 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           
-      - name: Intentionally Fail
-        run: exit 1
