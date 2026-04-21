@@ -53,7 +53,7 @@ jobs:
           echo "System Postgres Port: ${{ env.TF_VAR_system_postgres_port }}"
           echo "System Localstack Auth: ${{ env.TF_VAR_system_localstack_auth }}"
           echo "System Docker Host: ${{ env.TF_VAR_system_docker_host }}"
-          echo "System Azure Client ID: ${{ env.TF_VAR_system_azure_client_id
+          echo "System Azure Client ID: ${{ env.TF_VAR_system_azure_client_id }}"
           echo "System Azure Client Secret: ${{ env.TF_VAR_system_azure_client_secret }}"
           echo "System Azure Tenant ID: ${{ env.TF_VAR_system_azure_tenant_id }}"
           echo "System Azure Subscription ID: ${{ env.TF_VAR_system_azure_subscription_id }}"
