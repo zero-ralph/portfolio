@@ -56,7 +56,7 @@ jobs:
           cat .temporal.env
 
       - name: List project files
-        run: ls --la
+        run: ls -la
 
       # Runs a single command using the runners shell
       - name: Run Docker Compose
