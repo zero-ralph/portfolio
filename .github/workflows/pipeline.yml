@@ -42,7 +42,7 @@ jobs:
           echo "POSTGRES_SEEDS=${{ vars.TEMPORAL_POSTGRES_SEEDS }}" > .temporal.env
           echo "POSTGRES_USER=${{ vars.TEMPORAL_POSTGRES_USER }}" >> .temporal.env
           echo "POSTGRES_PASSWORD=${{ vars.TEMPORAL_POSTGRES_PASSWORD }}" >> .temporal.env
-          echo "POSTGRES_DB=temporal" >> .temporal.env
+          echo "POSTGRES_DB=${{ vars.TEMPORAL_POSTGRES_DB }}" >> .temporal.env
           echo "POSTGRES_PWD=${{ vars.TEMPORAL_POSTGRES_PWD }}" >> .temporal.env
           echo "DB=${{ vars.TEMPORAL_DB }}" >> .temporal.env
           echo "DB_PORT=${{ vars.TEMPORAL_DB_PORT }}" >> .temporal.env
