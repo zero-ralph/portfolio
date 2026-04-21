@@ -1,0 +1,55 @@
+name: Terraform
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'infra/**'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: infra/terraform/envs/dev
+
+    env:
+      TF_VAR_system_postgres_user: ${{ vars.SYSTEM_POSTGRES_USER }}
+      TF_VAR_system_postgres_password: ${{ vars.SYSTEM_POSTGRES_PASSWORD }}
+      TF_VAR_system_postgres_db: ${{ vars.SYSTEM_POSTGRES_DB }}
+      TF_VAR_system_postgres_port: ${{ vars.SYSTEM_POSTGRES_PORT }}
+      TF_VAR_system_localstack_auth: ${{ vars.SYSTEM_LOCALSTACK_AUTH_TOKEN }}
+      TF_VAR_system_docker_host: ${{ vars.SYSTEM_DOCKER_HOST }}
+      TF_VAR_system_azure_client_id: ${{ vars.SYSTEM_AZURE_CLIENT_ID }}
+      TF_VAR_system_azure_client_secret: ${{ vars.SYSTEM_AZURE_CLIENT_SECRET }}
+      TF_VAR_system_azure_tenant_id: ${{ vars.SYSTEM_AZURE_TENANT_ID }}
+      TF_VAR_system_azure_subscription_id: ${{ vars.SYSTEM_AZURE_SUBSCRIPTION_ID }}
+      TF_VAR_system_debug: ${{ vars.SYSTEM_DEBUG }}
+      TF_VAR_temporal_postgres_seeds: ${{ vars.TEMPORAL_POSTGRES_SEEDS }}
+      TF_VAR_temporal_postgres_user: ${{ vars.TEMPORAL_POSTGRES_USER }}
+      TF_VAR_temporal_postgres_password: ${{ vars.TEMPORAL_POSTGRES_PASSWORD }}
+      TF_VAR_temporal_postgres_db: ${{ vars.TEMPORAL_POSTGRES_DB }}
+      TF_VAR_temporal_postgres_pwd: ${{ vars.TEMPORAL_POSTGRES_PWD }}
+      TF_VAR_temporal_db: ${{ vars.TEMPORAL_DB }}
+      TF_VAR_temporal_db_port: ${{ vars.TEMPORAL_DB_PORT }}
+      TF_VAR_temporal_db_host: ${{ vars.TEMPORAL_DB_HOST }}
+      TF_VAR_temporal_address: ${{ vars.TEMPORAL_ADDRESS }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+

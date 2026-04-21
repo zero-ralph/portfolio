@@ -2,10 +2,10 @@ services:
 
   # Use System .env
   postgres:
-    image: postgres:latest
-    restart: unless-stopped
-    container_name: "platform_postgres"
-    env_file:
+    # image: postgres:latest
+    # restart: unless-stopped
+    # container_name: "platform_postgres"
+    # env_file:
       - .systems.env
     ports:
       - "5432:5432"
