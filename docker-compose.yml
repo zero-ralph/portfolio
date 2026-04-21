@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - platform_postgres_data:/var/lib/postgresql/data
+      - platform_postgres_data:/var/lib/postgresql/
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin -d platform -p 5432"]
       interval: 10s
@@ -28,7 +28,7 @@ services:
     env_file:
       - .temporal.env
     volumes:
-      - platform_postgres_temporal_data:/var/lib/postgresql/data
+      - platform_postgres_temporal_data:/var/lib/postgresql/
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U temporal -d temporal -p 5432"]
       interval: 10s
