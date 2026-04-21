@@ -55,7 +55,9 @@ jobs:
           echo "Contents of .temporal.env:"
           cat .temporal.env
 
+      - name: List project files
+        run: ls --la
 
       # Runs a single command using the runners shell
       - name: Run Docker Compose
-        run: docker compose --env-file .systems.env --env-file .temporal.env up --build -d
+        run: docker compose -build -d
