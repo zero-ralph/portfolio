@@ -1,0 +1,76 @@
+services:
+
+  # Use System .env
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    container_name: "platform_postgres"
+    ports:
+      - "5432:5432"
+    volumes:
+      - platform_postgres_data:/var/lib/postgresql/data
+
+  # Uses Temporal .env
+  postgres_temporal:
+    container_name: "platform_postgres_temporal"
+    image: postgres:latest
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    volumes:
+      - platform_postgres_temporal_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U temporal -d temporal -h localhost -p 5432"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # Uses Temporal .env
+  temporal:
+    container_name: "platform_temporal"
+    image: temporalio/auto-setup:latest
+    restart: unless-stopped
+    ports:
+      - "7233:7233"
+    env_file:
+      - .temporal.env
+    depends_on:
+      postgres_temporal:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "tctl --address 127.0.0.1:7233 cluster health || exit 1"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+  # Uses Temporal .env
+  temporal_ui:
+    container_name: "platform_temporal_ui"
+    image: temporalio/ui:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - .temporal.env
+    depends_on:
+      - temporal
+
+  # Uses System .env
+  localstack_azure:
+    container_name: "platform_localstack_azure"
+    image: localstack/localstack-azure-alpha
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4566:4566"
+    env_file:
+      - .systems.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - platform_localstack_azure_data:/var/lib/localstack
+
+volumes:
+  platform_postgres_data:
+  platform_postgres_temporal_data:
+  platform_localstack_azure_data:
