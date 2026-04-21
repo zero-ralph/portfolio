@@ -22,13 +22,43 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Write .systems.env file
+      - name: Write .systems.env file
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          
+          echo "POSTGRES_USER=${{ vars.SYSTEM_POSTGRES_USER }}" > .systems.env
+          echo "POSTGRES_PASSWORD=${{ vars.SYSTEM_POSTGRES_PASSWORD }}" >> .systems.env
+          echo "POSTGRES_DB=${{ vars.SYSTEM_POSTGRES_DB }}" >> .systems.env
+          echo "LOCALSTACK_AUTH_TOKEN=${{ vars.SYSTEM_LOCALSTACK_AUTH_TOKEN }}" >> .systems.env
+          echo "DOCKER_HOST=${{ vars.SYSTEM_DOCKER_HOST }}" >> .systems.env
+          echo "AZURE_CLIENT_ID=${{ vars.SYSTEM_AZURE_CLIENT_ID }}" >> .systems.env
+          echo "AZURE_CLIENT_SECRET=${{ vars.SYSTEM_AZURE_CLIENT_SECRET }}" >> .systems.env
+          echo "AZURE_TENANT_ID=${{ vars.SYSTEM_AZURE_TENANT_ID }}" >> .systems.env
+          echo "AZURE_SUBSCRIPTION_ID=${{ vars.SYSTEM_AZURE_SUBSCRIPTION_ID }}" >> .systems.env
+          echo "DEBUG=${{ vars.SYSTEM_DEBUG }}" >> .systems.env
+
+      # Write .temporal.env file
+      - name: Write .temporal.env file
+        run: |
+          echo "POSTGRES_SEEDS=${{ vars.TEMPORAL_POSTGRES_SEEDS }}" > .temporal.env
+          echo "POSTGRES_USER=${{ vars.TEMPORAL_POSTGRES_USER }}" >> .temporal.env
+          echo "POSTGRES_PASSWORD=${{ vars.TEMPORAL_POSTGRES_PASSWORD }}" >> .temporal.env
+          echo "POSTGRES_DB=${{ vars.TEMPORAL_POSTGRES_DB }}" >> .temporal.env
+          echo "POSTGRES_PWD=${{ vars.TEMPORAL_POSTGRES_PWD }}" >> .temporal.env
+          echo "DB=${{ vars.TEMPORAL_DB }}" >> .temporal.env
+          echo "DB_PORT=${{ vars.TEMPORAL_DB_PORT }}" >> .temporal.env
+          echo "DB_HOST=${{ vars.TEMPORAL_DB_HOST }}" >> .temporal.env
+          echo "TEMPORAL_ADDRESS=temporal:7233" >> .temporal.env
+
+      - name : Check .envs
+        run: |
+          echo "Contents of .systems.env:"
+          cat .systems.env
+          echo "Contents of .temporal.env:"
+          cat .temporal.env
+
+      - name: List project files
+        run: ls -la
+
+      # Runs a single command using the runners shell
+      - name: Run Docker Compose
+        run: docker compose up --build -d
