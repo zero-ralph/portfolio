@@ -49,13 +49,13 @@ jobs:
           echo "TEMPORAL_ADDRESS=temporal:7233" >> .temporal.env
 
       - name : Check .envs
-      run: |
-        echo "Contents of .systems.env:"
-        cat .systems.env
-        echo "Contents of .temporal.env:"
-        cat .temporal.env
+        run: |
+          echo "Contents of .systems.env:"
+          cat .systems.env
+          echo "Contents of .temporal.env:"
+          cat .temporal.env
 
-        
+
       # Runs a single command using the runners shell
       - name: Run Docker Compose
         run: docker compose --env-file .systems.env --env-file .temporal.env up --build -d
