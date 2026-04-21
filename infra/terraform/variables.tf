@@ -16,7 +16,7 @@ variable "system_postgres_db" {
 
 variable "system_postgres_port" {
   description = "Postgres port for the system database"
-  type        = number
+  type        = string
 }
 
 variable "system_localstack_auth" {
@@ -90,7 +90,7 @@ variable "temporal_db" {
 
 variable "temporal_db_port" {
   description = "Database port for Temporal"
-  type        = number
+  type        = string
 }
 
 variable "temporal_db_host" {

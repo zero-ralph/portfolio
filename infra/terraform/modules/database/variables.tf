@@ -25,5 +25,5 @@ variable "system_postgres_db" {
 
 variable "system_postgres_port" {
   description = "Postgres System Port"
-  type = number
+  type = string
 }
