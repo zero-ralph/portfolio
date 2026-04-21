@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: infra/terraform/envs/dev
+        working-directory: infra/terraform/
 
     env:
       TF_VAR_system_postgres_user: ${{ vars.SYSTEM_POSTGRES_USER }}
