@@ -41,6 +41,11 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
 
+      - name: Fix Provider Permissions
+        # This recursively finds the provider binaries and makes them executable
+        run: chmod -R +x .terraform/providers/
+
+        
       - name: Terraform Init
         run: terraform init
 
