@@ -11,6 +11,12 @@ services:
       - "5432:5432"
     volumes:
       - platform_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d platform -p 5432"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
   # Uses Temporal .env
   postgres_temporal:
