@@ -47,6 +47,15 @@ jobs:
           echo "DB_PORT=${{ vars.TEMPORAL_DB_PORT }}" >> .temporal.env
           echo "DB_HOST=${{ vars.TEMPORAL_DB_HOST }}" >> .temporal.env
           echo "TEMPORAL_ADDRESS=temporal:7233" >> .temporal.env
+
+      - name : Check .envs
+      run: |
+        echo "Contents of .systems.env:"
+        cat .systems.env
+        echo "Contents of .temporal.env:"
+        cat .temporal.env
+
+        
       # Runs a single command using the runners shell
       - name: Run Docker Compose
         run: docker compose --env-file .systems.env --env-file .temporal.env up --build -d
