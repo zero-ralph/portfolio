@@ -15,7 +15,7 @@ resource "docker_container" "platform_postgres" {
 
     ports {
         internal = 5432
-        external = tonumber(var.system_postgres_port)
+        external = var.system_postgres_port
     }
 
     volumes {
