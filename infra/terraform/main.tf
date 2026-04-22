@@ -19,3 +19,10 @@ module "database" {
     temporal_postgres_pwd = var.temporal_postgres_pwd
     temporal_db_name = var.temporal_postgres_db
 }
+
+module "temporal" {
+  source = "./modules/temporal"
+  temporal_postgres_db = var.temporal_db
+  temporal_postgres_host = var.temporal_db_host
+  temporal_postgres_port = var.temporal_db_port
+}

@@ -42,7 +42,32 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Fix Provider Permissions
+        # This recursively finds the provider binaries and makes them executable
         run: chmod -R +x .terraform/providers/
+
+      - name: ECHO variables
+        run: |
+          echo "System Postgres User: ${{ env.TF_VAR_system_postgres_user }}"
+          echo "System Postgres Password: ${{ env.TF_VAR_system_postgres_password }}"
+          echo "System Postgres DB: ${{ env.TF_VAR_system_postgres_db }}"
+          echo "System Postgres Port: ${{ env.TF_VAR_system_postgres_port }}"
+          echo "System Localstack Auth: ${{ env.TF_VAR_system_localstack_auth }}"
+          echo "System Docker Host: ${{ env.TF_VAR_system_docker_host }}"
+          echo "System Azure Client ID: ${{ env.TF_VAR_system_azure_client_id }}"
+          echo "System Azure Client Secret: ${{ env.TF_VAR_system_azure_client_secret }}"
+          echo "System Azure Tenant ID: ${{ env.TF_VAR_system_azure_tenant_id }}"
+          echo "System Azure Subscription ID: ${{ env.TF_VAR_system_azure_subscription_id }}"
+          echo "System Debug: ${{ env.TF_VAR_system_debug }}"
+          echo "Temporal Postgres Seeds: ${{ env.TF_VAR_temporal_postgres_seeds }}"
+          echo "Temporal Postgres User: ${{ env.TF_VAR_temporal_postgres_user }}"
+          echo "Temporal Postgres Password: ${{ env.TF_VAR_temporal_postgres_password }}"
+          echo "Temporal Postgres DB: ${{ env.TF_VAR_temporal_postgres_db }}"
+          echo "Temporal Postgres PWD: ${{ env.TF_VAR_temporal_postgres_pwd }}"
+          echo "Temporal DB: ${{ env.TF_VAR_temporal_db }}"
+          echo "Temporal DB Port: ${{ env.TF_VAR_temporal_db_port }}"
+          echo "Temporal DB Host: ${{ env.TF_VAR_temporal_db_host }}"
+          echo "Temporal Address: ${{ env.TF_VAR_temporal_address }}"
+
 
       - name: Terraform Init
         run: terraform init
