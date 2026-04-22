@@ -27,3 +27,23 @@ variable "system_postgres_port" {
   description = "Postgres System Port"
   type = string
 }
+
+variable "temporal_db_port" {
+  description = "Postgres Temporal Port"
+  type = string
+}
+
+variable "temporal_db_user" {
+  description = "Postgres Temporal User"
+  type = string
+}
+
+variable "temporal_postgres_pwd" {
+  description = "Postgre Temporal Password"
+  type = string
+}
+
+variable "temporal_db_name" {
+  description = "Postgres Temporal Database Name"
+  type = string
+}
