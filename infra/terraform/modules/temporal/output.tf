@@ -1,3 +1,3 @@
 output "temporal_container_id" {
-  value = docker_container.temporal_postgres.id
+  value = docker_container.platform_temporal.id
 }

@@ -19,12 +19,21 @@ resource "docker_container" "platform_temporal" {
     external = 7233
   }
 
-  depends_on = [docker_container.temporal_postgres]
+  #     depends_on = [docker_container.temporal_postgres]
   
   healthcheck {
     test = ["CMD-SHELL", "tctl --address 127.0.0.1:7233 cluster health || exit 1"]
     interval = "10s"
     timeout  = "5s"
     retries  = 5
+  }
+
+  labels {
+    label = "com.docker.compose.project"
+    value = "portfolio"
+  }
+  labels {
+    label = "com.docker.compose.service"
+    value = "platform_temporal"
   }
 }
