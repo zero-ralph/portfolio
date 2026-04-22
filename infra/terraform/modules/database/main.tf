@@ -46,3 +46,43 @@ resource "docker_container" "platform_postgres" {
         value = "platform_postgres"
     }
 }
+
+resource "docker_container" "temporal_postgres" {
+    image       = docker_image.postgres.image_id
+    
+    name        = "temporal_postgres"
+    restart     = "unless-stopped"
+
+    networks_advanced {
+        name = var.network
+    }
+
+    ports {
+        internal = 5432
+        external = var.temporal_db_port
+    }
+
+    env = [
+        "POSTGRES_USER=${var.temporal_db_user}",
+        "POSTGRES_PASSWORD=${var.temporal_postgres_pwd}",
+        "POSTGRES_DB=${var.temporal_db_name}"
+    ]
+
+    healthcheck {
+        test     = ["CMD-SHELL", "pg_isready -U ${var.temporal_db_user} -d ${var.temporal_db_name} -p ${var.temporal_db_port} || exit 1"]
+        interval = "10s"
+        timeout  = "5s"
+        retries  = 5
+    }
+
+    labels {
+        label = "com.docker.compose.project"
+        value = "portfolio"
+    }
+
+    labels {
+        label = "com.docker.compose.service"
+        value = "temporal_postgres"
+    }
+  
+}
