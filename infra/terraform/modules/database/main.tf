@@ -62,6 +62,12 @@ resource "docker_container" "temporal_postgres" {
         external = var.temporal_db_port
     }
 
+    volumes {
+        volume_name      = var.temporal_db_volume
+        container_path = "/var/lib/postgresql/"
+    }
+
+
     env = [
         "POSTGRES_USER=${var.temporal_db_user}",
         "POSTGRES_PASSWORD=${var.temporal_postgres_pwd}",

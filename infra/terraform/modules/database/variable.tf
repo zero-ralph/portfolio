@@ -8,6 +8,11 @@ variable "platform_volume" {
   type        = string
 }
 
+variable "temporal_db_volume" {
+  description = "Temporal Database volume"
+  type = string
+}
+
 variable "system_postgres_user" {
   description = "Postgres System User"
   type = string
