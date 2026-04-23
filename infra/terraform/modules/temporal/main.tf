@@ -37,3 +37,4 @@ resource "docker_container" "platform_temporal" {
     value = "platform_temporal"
   }
 }
+
