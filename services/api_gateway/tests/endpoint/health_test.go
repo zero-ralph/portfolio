@@ -27,5 +27,5 @@ func TestHealthEndpoint(t *testing.T) {
 
 	// 3. Assertions
 	assert.Equal(t, http.StatusOK, rec.Code)
-	assert.Equal(t, "Hello, Worald!", rec.Body.String())
+	assert.Equal(t, "Hello, World!", rec.Body.String())
 }
