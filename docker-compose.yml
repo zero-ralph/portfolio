@@ -80,6 +80,15 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - platform_localstack_azure_data:/var/lib/localstack
 
+  prometheus:
+    container_name: "platform_prometheus"
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
 volumes:
   platform_postgres_data:
   platform_postgres_temporal_data:

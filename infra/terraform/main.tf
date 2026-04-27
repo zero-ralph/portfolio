@@ -27,7 +27,7 @@ module "temporal" {
   temporal_postgres_db = var.temporal_db
   temporal_postgres_host = var.temporal_db_host
   temporal_postgres_port = var.temporal_db_port
-
+  temporal_address = var.temporal_address
   depends_on = [module.database.temporal_postgres_name]
 }
 
