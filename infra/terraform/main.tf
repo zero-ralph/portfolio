@@ -42,3 +42,15 @@ module "localstack" {
   localstack_volume = module.volume.localstack_volume_name
   network = module.network.network_name
 }
+
+module "prometheus" {
+  source = "./modules/prometheus"
+}
+
+module "grafana" {
+  source = "./modules/grafana"
+  network = module.network.network_name
+  grafana_volume = module.volume.grafana_volume_name
+  grafana_username = var.grafana_username
+  grafana_password = var.grafana_password
+}

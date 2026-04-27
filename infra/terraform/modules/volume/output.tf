@@ -8,3 +8,7 @@ output "temporal_db_volume_name" {
 output "localstack_volume_name" {
   value = docker_volume.localstack_volume.name
 }
+
+output "grafana_volume_name" {
+  value = docker_volume.grafana_volume.name
+}

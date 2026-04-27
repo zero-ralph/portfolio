@@ -89,7 +89,21 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
 
+  grafana:
+    container_name: "platform_grafana"
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .systems.env
+    volumes:
+      - platform_grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
 volumes:
   platform_postgres_data:
   platform_postgres_temporal_data:
   platform_localstack_azure_data:
+  platform_grafana_data:

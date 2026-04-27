@@ -9,3 +9,7 @@ resource "docker_volume" "temporal_postgres_volume" {
 resource "docker_volume" "localstack_volume" {
   name = "localstack_volume"
 }
+
+resource "docker_volume" "grafana_volume" {
+  name = "platform_grafana_data"
+}
