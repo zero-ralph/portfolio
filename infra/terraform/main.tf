@@ -27,7 +27,7 @@ module "temporal" {
   temporal_postgres_db = var.temporal_db
   temporal_postgres_host = var.temporal_db_host
   temporal_postgres_port = var.temporal_db_port
-
+  temporal_address = var.temporal_address
   depends_on = [module.database.temporal_postgres_name]
 }
 
@@ -41,4 +41,21 @@ module "localstack" {
   azure_localstack_auth_token = var.system_localstack_auth
   localstack_volume = module.volume.localstack_volume_name
   network = module.network.network_name
+}
+
+module "prometheus" {
+  source = "./modules/prometheus"
+}
+
+module "grafana" {
+  source = "./modules/grafana"
+  network = module.network.network_name
+  grafana_volume = module.volume.grafana_volume_name
+  grafana_username = var.grafana_username
+  grafana_password = var.grafana_password
+}
+
+module "loki" {
+  source = "./modules/loki"
+  loki_volume = module.volume.loki_volume_name
 }

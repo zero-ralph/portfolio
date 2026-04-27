@@ -2,6 +2,10 @@ resource "docker_image" "temporal_image" {
   name = "temporalio/auto-setup:latest"
 }
 
+resource "docker_image" "temporal_ui_image" {
+  name = "temporalio/ui:latest"
+}
+
 resource "docker_container" "platform_temporal" {
   name  = "platform_temporal"
   image = docker_image.temporal_image.name
@@ -38,3 +42,27 @@ resource "docker_container" "platform_temporal" {
   }
 }
 
+
+resource "docker_container" "temporal_ui" {
+  name  = "temporal_ui"
+  image = docker_image.temporal_ui_image.name
+  restart = "unless-stopped"
+
+  ports {
+    internal = 8080
+    external = 8080
+  }
+
+  env = [
+    "TEMPORAL_ADDRESS=platform_temporal:7233"
+  ]
+
+  labels {
+    label = "com.docker.compose.project"
+    value = "portfolio"
+  }
+  labels {
+    label = "com.docker.compose.service"
+    value = "temporal_ui"
+  }
+}

@@ -102,3 +102,13 @@ variable "temporal_address" {
   description = "Address for Temporal"
   type        = string
 }
+
+variable "grafana_username" {
+  description = "Username for Grafana"
+  type        = string
+}
+
+variable "grafana_password" {
+  description = "Password for Grafana"
+  type = string
+}

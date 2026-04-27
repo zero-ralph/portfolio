@@ -35,6 +35,8 @@ jobs:
       TF_VAR_temporal_db_port: ${{ vars.TEMPORAL_DB_PORT }}
       TF_VAR_temporal_db_host: ${{ vars.TEMPORAL_DB_HOST }}
       TF_VAR_temporal_address: ${{ vars.TEMPORAL_ADDRESS }}
+      TF_VAR_grafana_username: ${{ vars.GF_SECURITY_ADMIN_USER }}
+      TF_VAR_grafana_password: ${{ vars.GF_SECURITY_ADMIN_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v4
