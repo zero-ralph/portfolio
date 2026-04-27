@@ -12,3 +12,7 @@ output "localstack_volume_name" {
 output "grafana_volume_name" {
   value = docker_volume.grafana_volume.name
 }
+
+output "loki_volume_name" {
+  value = docker_volume.loki_volume.name
+}

@@ -13,3 +13,7 @@ resource "docker_volume" "localstack_volume" {
 resource "docker_volume" "grafana_volume" {
   name = "platform_grafana_data"
 }
+
+resource "docker_volume" "loki_volume" {
+  name = "platform_loki_data"
+}

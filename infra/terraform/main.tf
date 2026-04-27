@@ -54,3 +54,8 @@ module "grafana" {
   grafana_username = var.grafana_username
   grafana_password = var.grafana_password
 }
+
+module "loki" {
+  source = "./modules/loki"
+  loki_volume = module.volume.loki_volume_name
+}
