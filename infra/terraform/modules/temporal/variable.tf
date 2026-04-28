@@ -17,3 +17,8 @@ variable "temporal_address" {
   description = "Temporal Address for Temporal UI"
   type = string
 }
+
+variable "network" {
+  description = "Docker System Network"
+  type = string
+}

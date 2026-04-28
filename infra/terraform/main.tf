@@ -29,6 +29,7 @@ module "temporal" {
   temporal_postgres_port = var.temporal_db_port
   temporal_address = var.temporal_address
   depends_on = [module.database.temporal_postgres_name]
+  network = module.network.network_name
 }
 
 module "localstack" {
@@ -45,6 +46,7 @@ module "localstack" {
 
 module "prometheus" {
   source = "./modules/prometheus"
+  network = module.network.network_name
 }
 
 module "grafana" {
@@ -58,4 +60,11 @@ module "grafana" {
 module "loki" {
   source = "./modules/loki"
   loki_volume = module.volume.loki_volume_name
+  network = module.network.network_name
 }
+
+# Comment out for now (Need to push the api gateway to Docker HUB)
+# module "app" {
+#   source = "./modules/app"
+#   network = module.network.network_name
+# }
