@@ -31,4 +31,6 @@ jobs:
           go mod tidy
       
       - name: Run Test Endpoints
-        run: go test -v ./services/api_gateway/tests/endpoint/...
+        run: |
+          cd ./services 
+          go test -v ./api_gateway/tests/endpoint/...
