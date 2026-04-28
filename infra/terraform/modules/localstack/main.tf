@@ -5,7 +5,6 @@ resource "docker_image" "localstack_azure_image" {
 resource "docker_container" "platform_localstack" {
   name  = "platform_localstack"
   image = docker_image.localstack_azure_image.name
-  restart = "unless-stopped"
 
   env = [
     "AZURE_CLIENT_ID=${var.azure_client_id}",

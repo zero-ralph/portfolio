@@ -12,6 +12,10 @@ resource "docker_container" "platform_grafana" {
     external = 3000
   }
 
+  networks_advanced {
+    name = var.network
+  }
+
   env = [
     "GF_SECURITY_ADMIN_USER=${var.grafana_username}",
     "GF_SECURITY_ADMIN_PASSWORD=${var.grafana_password}"

@@ -31,5 +31,9 @@ resource "docker_container" "platform_loki" {
     label = "com.docker.compose.service"
     value = "platform_loki"
   }
+
+  networks_advanced {
+    name = var.network
+  }
   
 }

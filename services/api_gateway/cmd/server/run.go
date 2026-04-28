@@ -2,14 +2,17 @@ package main
 
 import (
 	"github.com/labstack/echo/v5"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/collectors"
 	"github.com/zero-ralph/portfolio/services/api_gateway/internal/handler"
 	"github.com/zero-ralph/portfolio/services/api_gateway/internal/repository"
 	"github.com/zero-ralph/portfolio/services/api_gateway/internal/service"
 )
 
 type Server struct {
-	router         *echo.Group
-	internalRouter *echo.Group
+	router             *echo.Group
+	internalRouter     *echo.Group
+	prometheusRegistry *prometheus.Registry
 }
 
 func run(engine *echo.Echo) error {
@@ -19,7 +22,9 @@ func run(engine *echo.Echo) error {
 		router: router,
 	}
 
+	server.PrometheusInitialize()
 	server.ServiceRepositoryInitialize()
+
 	return nil
 }
 
@@ -38,5 +43,13 @@ func (server *Server) HandlerInternalRouter(
 	systemService service.ISystemService,
 ) {
 	internalRouter := server.internalRouter.Group("/system")
-	handler.NewSystemHandler(internalRouter, systemService)
+	handler.NewSystemHandler(server.prometheusRegistry, internalRouter, systemService)
+}
+
+func (server *Server) PrometheusInitialize() {
+	server.prometheusRegistry = prometheus.NewRegistry()
+	server.prometheusRegistry.MustRegister(
+		collectors.NewGoCollector(),
+		collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}),
+	)
 }

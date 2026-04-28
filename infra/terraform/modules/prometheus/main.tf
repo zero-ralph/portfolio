@@ -26,4 +26,8 @@ resource "docker_container" "platform_prometheus" {
         label = "com.docker.compose.service"
         value = "platform-prometheus"
     }
+
+    networks_advanced {
+      name = var.network
+    }
 }

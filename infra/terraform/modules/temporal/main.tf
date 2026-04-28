@@ -9,12 +9,12 @@ resource "docker_image" "temporal_ui_image" {
 resource "docker_container" "platform_temporal" {
   name  = "platform_temporal"
   image = docker_image.temporal_image.name
-  restart = "unless-stopped"
 
   env = [
     "DB=${var.temporal_postgres_db}",
     "DB_PORT=${var.temporal_postgres_port}",
     "DB_HOST=${var.temporal_postgres_host}",
+    "POSTGRES_SEEDS=temporal_postgres"
   ]
 
 
@@ -40,13 +40,16 @@ resource "docker_container" "platform_temporal" {
     label = "com.docker.compose.service"
     value = "platform_temporal"
   }
+
+  networks_advanced {
+    name = var.network
+  }
 }
 
 
-resource "docker_container" "temporal_ui" {
-  name  = "temporal_ui"
+resource "docker_container" "platform_temporal_ui" {
+  name  = "platform_temporal_ui"
   image = docker_image.temporal_ui_image.name
-  restart = "unless-stopped"
 
   ports {
     internal = 8080
@@ -64,5 +67,9 @@ resource "docker_container" "temporal_ui" {
   labels {
     label = "com.docker.compose.service"
     value = "temporal_ui"
+  }
+
+  networks_advanced {
+    name = var.network
   }
 }
