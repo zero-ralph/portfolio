@@ -26,7 +26,9 @@ jobs:
       # Runs a single command using the runners shell
 
       - name: Install or Update Dependencies
-        run: cd ./service && go mod tidy
+        run: |
+          cd ./services
+          go mod tidy
       
       - name: Run Test Endpoints
         run: go test -v ./services/api_gateway/tests/endpoint/...
