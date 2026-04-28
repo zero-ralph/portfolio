@@ -24,8 +24,9 @@ jobs:
       - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
+
       - name: Install or Update Dependencies
-        run: go mod tidy
+        run: cd ./service && go mod tidy
       
       - name: Run Test Endpoints
         run: go test -v ./services/api_gateway/tests/endpoint/...
