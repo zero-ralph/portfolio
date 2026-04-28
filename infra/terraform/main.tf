@@ -63,7 +63,8 @@ module "loki" {
   network = module.network.network_name
 }
 
-module "app" {
-  source = "./modules/app"
-  network = module.network.network_name
-}
+# Comment out for now (Need to push the api gateway to Docker HUB)
+# module "app" {
+#   source = "./modules/app"
+#   network = module.network.network_name
+# }
