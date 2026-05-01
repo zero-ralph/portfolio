@@ -12,6 +12,11 @@ setup(
     author_email="ralph.subrio@gmail.com",
     description="Multi Tenant SaaS Portfolio",
     license="BSD",
-    packages=find_packages('.'),
-    install_requires=requires
+    packages=find_packages(where="."),
+    install_requires=requires,
+    entry_points={
+    "console_scripts": [
+        "app=mtsp.main:run"
+    ]
+}
 )
